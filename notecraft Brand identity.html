@@ -1,0 +1,3897 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NoteCraft — Your Ideas, Organized</title>
+    <meta
+      name="description"
+      content="NoteCraft is a simple and focused digital workspace for capturing, organizing, and managing your notes."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NoteCraft — Your Ideas, Organized" />
+    <meta
+      property="og:description"
+      content="A simple and focused digital workspace for capturing, organizing, and managing your notes."
+    />
+    <meta
+      property="og:url"
+      content="https://browserbaba24x7-cloud.github.io/Notecraft/"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="NoteCraft — Your Ideas, Organized" />
+    <meta
+      name="twitter:description"
+      content="A simple and focused digital workspace for capturing, organizing, and managing your notes."
+    />
+    <meta name="theme-color" content="#FAF7F1" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect width='34' height='34' rx='9.5' fill='%231B1712'/%3E%3Cpath d='M11.5 7.5h8.2l6.3 6.3V24a2.5 2.5 0 0 1-2.5 2.5h-12A2.5 2.5 0 0 1 9 24V10a2.5 2.5 0 0 1 2.5-2.5Z' fill='%23FAF7F1'/%3E%3Cpath d='M19.7 7.5v3.9a2.4 2.4 0 0 0 2.4 2.4h3.9Z' fill='%23E0502A'/%3E%3Cpath d='M13 17h8M13 20.5h5.5' stroke='%231B1712' stroke-width='1.9' stroke-linecap='round' fill='none'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ---------- Tokens & reset ---------- */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --paper: #faf7f1;
+        --paper-2: #f3eee4;
+        --card: #fffdf8;
+        --ink: #1b1712;
+        --ink-2: #5c5344;
+        --ink-3: #8a8070;
+        --line: #e7e0d2;
+        --line-2: #ded2be;
+        --accent: #e0502a;
+        --accent-deep: #c2410c;
+        --accent-soft: #fbeae2;
+        --dark: #161210;
+        --dark-2: #221c15;
+        --cream: #f5efe4;
+        --cream-mut: #b7ac99;
+        --dline: #2e261c;
+        --serif: "Fraunces", Georgia, serif;
+        --sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        --mono: "Spline Sans Mono", ui-monospace, SFMono-Regular, monospace;
+        --shadow:
+          0 1px 2px rgba(27, 23, 18, 0.04),
+          0 14px 34px -18px rgba(27, 23, 18, 0.14);
+        --shadow-lg: 0 30px 80px -30px rgba(27, 23, 18, 0.32);
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 96px;
+        color-scheme: light;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: clip;
+      }
+      img,
+      svg {
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ul,
+      ol {
+        list-style: none;
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: 0;
+        cursor: pointer;
+      }
+      ::selection {
+        background: var(--accent);
+        color: #fff6ef;
+      }
+      :focus-visible {
+        outline: 2.5px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 8px;
+      }
+      body.no-scroll {
+        overflow: hidden;
+      }
+      .skip-link {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 200;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 10px 20px;
+        border-radius: 999px;
+        font-weight: 600;
+        transform: translateY(-70px);
+        transition: transform 0.25s;
+      }
+      .skip-link:focus {
+        transform: none;
+      }
+      .ic {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex: none;
+      }
+      .container {
+        width: min(1160px, calc(100% - 48px));
+        margin-inline: auto;
+      }
+      section {
+        position: relative;
+      }
+      .sec {
+        padding-block: clamp(76px, 9vw, 128px);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        text-wrap: balance;
+      }
+      h2 {
+        font-size: clamp(2.05rem, 4.3vw, 3rem);
+      }
+      .sec-head {
+        max-width: 680px;
+      }
+      .sec-head.center {
+        margin-inline: auto;
+        text-align: center;
+      }
+      .sec-sub {
+        margin-top: 16px;
+        color: var(--ink-2);
+        font-size: 1.08rem;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent-deep);
+      }
+      .eyebrow::before {
+        content: "";
+        width: 22px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+      .sec-head.center .eyebrow::after {
+        content: "";
+        width: 22px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+      .eyebrow.light {
+        color: #e8a087;
+      }
+      .tag {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        white-space: nowrap;
+      }
+      .tag-n {
+        background: #efe8da;
+        color: #6e6350;
+      }
+      mark {
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        padding: 0 2px;
+        border-radius: 3px;
+        font-weight: 600;
+      }
+
+      /* ---------- Marker highlight (swash) ---------- */
+      .hl {
+        position: relative;
+        display: inline-block;
+        font-style: normal;
+        padding: 0 0.05em;
+        z-index: 0;
+      }
+      .hl::before {
+        content: "";
+        position: absolute;
+        inset: 0.1em -0.14em 0.03em;
+        background: var(--hl-bg, var(--accent-soft));
+        z-index: -1;
+        border-radius: 0.4em 0.55em 0.5em 0.6em/.6em 0.4em 0.65em 0.5em;
+      }
+      .hl-dark {
+        --hl-bg: #2b2216;
+      }
+      .hl-swash {
+        position: absolute;
+        left: -1%;
+        bottom: -0.14em;
+        width: 102%;
+        height: 0.24em;
+        overflow: visible;
+      }
+      .hl-swash path {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: draw 0.9s 1s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      /* ---------- Buttons ---------- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 30px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 1rem;
+        line-height: 1;
+        border: 1px solid transparent;
+        transition:
+          transform 0.25s,
+          background 0.25s,
+          color 0.25s,
+          box-shadow 0.3s,
+          border-color 0.25s;
+      }
+      .btn .ic {
+        width: 18px;
+        height: 18px;
+        transition: transform 0.25s;
+      }
+      .btn:hover .ic {
+        transform: translateX(3px);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .btn-primary:hover {
+        background: var(--accent);
+        color: var(--ink);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px -12px rgba(224, 80, 42, 0.5);
+      }
+      .btn-ghost {
+        border-color: var(--line-2);
+        color: var(--ink);
+      }
+      .btn-ghost:hover {
+        border-color: var(--ink);
+        background: var(--card);
+        transform: translateY(-2px);
+      }
+      .btn-accent {
+        background: var(--accent);
+        color: #1e0d06;
+      }
+      .btn-accent:hover {
+        background: var(--accent-deep);
+        color: var(--paper);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px -12px rgba(194, 65, 12, 0.55);
+      }
+      .btn-ghost-d {
+        border-color: #3b3122;
+        color: var(--cream);
+      }
+      .btn-ghost-d:hover {
+        border-color: #6b5c44;
+        transform: translateY(-2px);
+      }
+      .btn-sm {
+        padding: 11px 22px;
+        font-size: 0.92rem;
+      }
+      .link-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-weight: 600;
+        color: var(--ink);
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 4px;
+        transition: color 0.25s;
+      }
+      .link-arrow .ic {
+        width: 17px;
+        height: 17px;
+        transition: transform 0.25s;
+      }
+      .link-arrow:hover {
+        color: var(--accent-deep);
+      }
+      .link-arrow:hover .ic {
+        transform: translateX(4px);
+      }
+
+      /* ---------- Entrance & reveal ---------- */
+      .hu {
+        opacity: 0;
+        transform: translateY(24px);
+        animation: huIn 0.85s var(--hd, 0.15s) cubic-bezier(0.2, 0.7, 0.2, 1)
+          forwards;
+      }
+      @keyframes huIn {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+        transition-delay: var(--d, 0s);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ---------- Header / nav ---------- */
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 100;
+        transition:
+          background 0.3s,
+          box-shadow 0.3s;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 78px;
+        transition: height 0.3s;
+      }
+      .site-header.scrolled,
+      .site-header.menu-open {
+        background: rgba(250, 247, 241, 0.86);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+      .site-header.scrolled .nav {
+        height: 64px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+      }
+      .logo {
+        width: 34px;
+        height: 34px;
+        transition: transform 0.3s;
+      }
+      .brand:hover .logo {
+        transform: rotate(-6deg);
+      }
+      .brand-name {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 1.28rem;
+        letter-spacing: -0.01em;
+      }
+      .brand-name em {
+        font-style: italic;
+        color: var(--accent-deep);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+      }
+      .nav-links a {
+        position: relative;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--ink-2);
+        padding: 6px 0;
+        transition: color 0.25s;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -4px;
+        width: 16px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--accent);
+        transform: translateX(-50%) scaleX(0);
+        transform-origin: center;
+        transition: transform 0.3s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--ink);
+      }
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        transform: translateX(-50%) scaleX(1);
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line-2);
+        border-radius: 12px;
+        background: var(--card);
+      }
+      .nav-toggle span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--ink);
+        border-radius: 2px;
+        transition: transform 0.3s;
+      }
+      .menu-open .nav-toggle span:nth-child(1) {
+        transform: translateY(3.5px) rotate(45deg);
+      }
+      .menu-open .nav-toggle span:nth-child(2) {
+        transform: translateY(-3.5px) rotate(-45deg);
+      }
+      .mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+        padding: 14px 24px 26px;
+        display: none;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+      }
+      .menu-open .mobile-menu {
+        opacity: 1;
+        transform: none;
+      }
+      .mobile-menu nav a {
+        display: block;
+        padding: 15px 2px;
+        border-bottom: 1px solid var(--line);
+        font-weight: 500;
+        font-size: 1.05rem;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.35s,
+          transform 0.35s;
+        transition-delay: calc(var(--i) * 45ms);
+      }
+      .menu-open .mobile-menu nav a {
+        opacity: 1;
+        transform: none;
+      }
+      .mobile-menu .btn {
+        margin-top: 18px;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 0.35s 0.2s;
+      }
+      .menu-open .mobile-menu .btn {
+        opacity: 1;
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        padding: clamp(140px, 17vh, 184px) 0 clamp(64px, 7vw, 96px);
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle,
+          rgba(27, 23, 18, 0.075) 1px,
+          transparent 1.4px
+        );
+        background-size: 26px 26px;
+        -webkit-mask-image: linear-gradient(#000 45%, transparent 92%);
+        mask-image: linear-gradient(#000 45%, transparent 92%);
+        pointer-events: none;
+      }
+      .hero-inner {
+        position: relative;
+        text-align: center;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 18px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink-2);
+        box-shadow: var(--shadow);
+      }
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        position: relative;
+      }
+      .badge-dot::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        animation: ping 2.6s ease-out infinite;
+      }
+      @keyframes ping {
+        0% {
+          transform: scale(0.55);
+          opacity: 0.55;
+        }
+        70%,
+        100% {
+          transform: scale(1.45);
+          opacity: 0;
+        }
+      }
+      .hero h1 {
+        font-size: clamp(2.55rem, 6.3vw, 4.4rem);
+        font-weight: 500;
+        max-width: 840px;
+        margin: 26px auto 0;
+      }
+      .hero-sub {
+        max-width: 580px;
+        margin: 22px auto 0;
+        color: var(--ink-2);
+        font-size: clamp(1.02rem, 1.6vw, 1.15rem);
+      }
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 36px;
+      }
+      .hero-visual {
+        position: relative;
+        max-width: 1000px;
+        margin: clamp(48px, 7vw, 76px) auto 0;
+      }
+      .float-wrap {
+        animation: bob 7s ease-in-out 2.6s infinite;
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Browser / app mockup (shared) */
+      .browser {
+        background: #fffefb;
+        border: 1px solid #e9e1d3;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+      .browser.hu {
+        transform: perspective(1400px) rotateX(7deg) translateY(34px);
+        transform-origin: top center;
+        animation-name: mockIn;
+        animation-duration: 1.15s;
+        animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      @keyframes mockIn {
+        to {
+          opacity: 1;
+          transform: perspective(1400px) rotateX(0) translateY(0);
+        }
+      }
+      .b-bar {
+        display: flex;
+        align-items: center;
+        height: 42px;
+        padding: 0 16px;
+        background: #f0e9dc;
+        border-bottom: 1px solid var(--line);
+      }
+      .b-dots {
+        display: flex;
+        gap: 7px;
+      }
+      .b-dots i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #d8cebd;
+      }
+      .b-addr {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin: 0 auto;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 16px;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink-3);
+      }
+      .b-addr .ic {
+        width: 11px;
+        height: 11px;
+      }
+      .b-spacer {
+        width: 44px;
+      }
+      .app {
+        display: grid;
+        grid-template-columns: 246px 1fr;
+        aspect-ratio: 1.66;
+      }
+      .app-side {
+        background: #f4eee3;
+        border-right: 1px solid var(--line);
+        padding: 14px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        min-width: 0;
+      }
+      .as-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 2px 4px 8px;
+      }
+      .as-logo {
+        width: 20px;
+        height: 20px;
+      }
+      .as-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 7px 11px;
+        font-size: 11.5px;
+        color: var(--ink-3);
+      }
+      .as-search .ic {
+        width: 13px;
+        height: 13px;
+      }
+      .as-label {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        padding: 9px 4px 1px;
+      }
+      .as-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1px 10px;
+        padding: 9px 11px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        min-width: 0;
+      }
+      .as-item.active {
+        background: #fff;
+        border-color: var(--line);
+        box-shadow: 0 4px 12px -6px rgba(27, 23, 18, 0.15);
+      }
+      .as-item.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        bottom: 9px;
+        width: 3px;
+        border-radius: 3px;
+        background: var(--accent);
+      }
+      .as-t {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .as-s {
+        grid-column: 1;
+        font-size: 10.5px;
+        color: var(--ink-3);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .as-d {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        color: var(--ink-3);
+        padding-top: 2px;
+      }
+      .app-main {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .am-head {
+        padding: 17px 22px 10px;
+      }
+      .am-title {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 19px;
+      }
+      .am-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .save-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: auto;
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 11px;
+        border-radius: 999px;
+      }
+      .save-pill .ic {
+        width: 11px;
+        height: 11px;
+        stroke-width: 2.6;
+      }
+      .typed .save-pill {
+        animation: pulse 0.6s ease;
+      }
+      @keyframes pulse {
+        40% {
+          transform: scale(1.14);
+        }
+      }
+      .am-body {
+        flex: 1;
+        padding: 2px 22px 14px;
+      }
+      .am-body p {
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--ink-2);
+        max-width: 54ch;
+      }
+      .am-type {
+        min-height: 1.7em;
+        color: var(--ink);
+      }
+      .caret {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: var(--accent);
+        margin-left: 2px;
+        vertical-align: -2px;
+        animation: blink 1.1s steps(1) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      .am-checks {
+        margin-top: 13px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .am-checks li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 12.5px;
+        color: var(--ink-2);
+      }
+      .cb {
+        width: 15px;
+        height: 15px;
+        border: 1.6px solid #c9bea9;
+        border-radius: 5px;
+        display: grid;
+        place-items: center;
+        flex: none;
+        color: #fff;
+      }
+      li.done .cb {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .cb .ic {
+        width: 9px;
+        height: 9px;
+        stroke-width: 3.2;
+      }
+      .am-foot {
+        display: flex;
+        justify-content: space-between;
+        padding: 9px 22px;
+        border-top: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        color: var(--ink-3);
+      }
+
+      /* Floating chips */
+      .chip {
+        position: absolute;
+        z-index: 3;
+        animation: bob 6.5s ease-in-out infinite;
+      }
+      .chip-1 {
+        top: -18px;
+        right: 3%;
+      }
+      .chip-2 {
+        top: 33%;
+        left: -16px;
+        animation-delay: 0.9s;
+      }
+      .chip-3 {
+        bottom: 25%;
+        right: -16px;
+        animation-delay: 1.7s;
+      }
+      .chip-4 {
+        bottom: -16px;
+        left: 6%;
+        animation-delay: 2.4s;
+      }
+      .chip-in {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 253, 248, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 9px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: 0 10px 30px -12px rgba(27, 23, 18, 0.28);
+        transition:
+          opacity 0.55s 0.15s,
+          transform 0.55s 0.15s;
+      }
+      .chip-in .ic {
+        width: 15px;
+        height: 15px;
+        color: var(--accent-deep);
+      }
+      .chip-1 .chip-in {
+        opacity: 0;
+        transform: translateY(10px) scale(0.8);
+      }
+      .typed .chip-1 .chip-in {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ---------- Trust bar ---------- */
+      .trustbar {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 36px 0;
+      }
+      .trust-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px;
+      }
+      .trust-statement {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+        max-width: 580px;
+        line-height: 1.4;
+      }
+      .trust-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 28px;
+      }
+      .trust-items li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--ink-2);
+      }
+      .trust-items .ic {
+        width: 15px;
+        height: 15px;
+        color: var(--accent-deep);
+      }
+
+      /* ---------- Problem ---------- */
+      .p-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 54px;
+      }
+      .p-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 34px 30px;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.35s,
+          box-shadow 0.35s,
+          border-color 0.35s;
+      }
+      .p-card h3 {
+        font-size: 1.35rem;
+        margin-bottom: 10px;
+      }
+      .p-card p {
+        color: var(--ink-2);
+        font-size: 0.97rem;
+      }
+      .p-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        display: grid;
+        place-items: center;
+        margin-bottom: 24px;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .p-icon .ic {
+        width: 23px;
+        height: 23px;
+      }
+      @media (hover: hover) {
+        .p-card:hover,
+        .feat:hover,
+        .uc:hover {
+          transform: translateY(-5px);
+          border-color: var(--line-2);
+          box-shadow: 0 24px 50px -22px rgba(27, 23, 18, 0.22);
+        }
+        .p-card:hover .p-icon,
+        .feat:hover .f-ic {
+          background: var(--accent);
+          color: #fff;
+        }
+      }
+
+      /* ---------- Solution ---------- */
+      .solution {
+        background: var(--paper-2);
+      }
+      .sol-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(40px, 6vw, 80px);
+        align-items: center;
+      }
+      .sol-copy .sec-sub {
+        max-width: 480px;
+      }
+      .sol-list {
+        margin: 28px 0 34px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .sol-list li {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        font-weight: 500;
+      }
+      .chk {
+        width: 23px;
+        height: 23px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--paper);
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .chk .ic {
+        width: 11px;
+        height: 11px;
+        stroke-width: 2.6;
+      }
+      .sol-visual {
+        position: relative;
+      }
+      .sol-visual::before {
+        content: "";
+        position: absolute;
+        inset: 20px -16px -16px 20px;
+        background: var(--accent-soft);
+        border-radius: 24px;
+        transform: rotate(1.6deg);
+      }
+      .sol-card {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+      }
+      .float-tag {
+        position: absolute;
+        top: -16px;
+        right: 22px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 8px 15px;
+        border-radius: 999px;
+        box-shadow: 0 12px 26px -10px rgba(27, 23, 18, 0.4);
+      }
+      .float-tag .ic {
+        width: 13px;
+        height: 13px;
+        color: #f0906b;
+      }
+      .sol-quote {
+        margin: 16px 0 4px;
+        padding: 12px 16px;
+        border-left: 3px solid var(--accent);
+        background: var(--paper);
+        border-radius: 0 10px 10px 0;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 13.5px;
+        color: var(--ink);
+        line-height: 1.55;
+      }
+
+      /* ---------- Features ---------- */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 56px;
+      }
+      .feat {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.35s,
+          box-shadow 0.35s,
+          border-color 0.35s;
+      }
+      .feat.wide {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 26px;
+        align-items: center;
+      }
+      .feat h3 {
+        font-size: 1.22rem;
+        margin: 20px 0 8px;
+      }
+      .feat p {
+        color: var(--ink-2);
+        font-size: 0.95rem;
+      }
+      .f-ic {
+        width: 46px;
+        height: 46px;
+        border-radius: 13px;
+        background: var(--accent-soft);
+        color: var(--accent-deep);
+        display: grid;
+        place-items: center;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .f-ic .ic {
+        width: 21px;
+        height: 21px;
+      }
+      .feat-vis {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .fv-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        align-self: flex-start;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 9px 17px;
+        border-radius: 999px;
+      }
+      .fv-btn .ic {
+        width: 13px;
+        height: 13px;
+      }
+      .fv-input {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 13px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .fv-caret {
+        width: 2px;
+        height: 14px;
+        background: var(--accent);
+        animation: blink 1.1s steps(1) infinite;
+      }
+      .fv-browser {
+        display: flex;
+        gap: 6px;
+      }
+      .fv-browser i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #d8cebd;
+      }
+      .fv-url {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 13px;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--ink-3);
+      }
+      .fv-url .ic {
+        width: 12px;
+        height: 12px;
+      }
+      .features-cta {
+        text-align: center;
+        margin-top: 44px;
+      }
+
+      /* ---------- Showcase ---------- */
+      .showcase-sec {
+        background: var(--paper-2);
+      }
+      .showcase {
+        display: grid;
+        grid-template-columns: 330px 1fr;
+        gap: clamp(30px, 4.5vw, 56px);
+        margin-top: 56px;
+        align-items: center;
+      }
+      .hint {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        margin-top: 20px;
+      }
+      .shot-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .shot-tab {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 14px;
+        align-items: center;
+        text-align: left;
+        padding: 17px 18px;
+        border: 1px solid transparent;
+        border-radius: 16px;
+        position: relative;
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
+        width: 100%;
+      }
+      .shot-tab.active {
+        background: var(--card);
+        border-color: var(--line);
+        box-shadow: var(--shadow);
+      }
+      .st-num {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        color: var(--accent-deep);
+      }
+      .st-body strong {
+        display: block;
+        font-size: 0.98rem;
+        font-weight: 600;
+      }
+      .st-body em {
+        display: block;
+        font-style: normal;
+        font-size: 0.85rem;
+        color: var(--ink-3);
+        margin-top: 3px;
+      }
+      .st-arrow {
+        width: 16px;
+        height: 16px;
+        color: var(--accent-deep);
+        opacity: 0;
+        transform: translateX(-5px);
+        transition: 0.3s;
+      }
+      .shot-tab.active .st-arrow {
+        opacity: 1;
+        transform: none;
+      }
+      .shot-tab.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 16px;
+        bottom: 16px;
+        width: 3px;
+        border-radius: 3px;
+        background: var(--accent);
+      }
+      .shot-stage {
+        display: grid;
+      }
+      .shot-panel {
+        grid-area: 1/1;
+        opacity: 0;
+        transform: translateY(16px) scale(0.985);
+        transition:
+          opacity 0.5s,
+          transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+        pointer-events: none;
+        visibility: hidden;
+      }
+      .shot-panel.active {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        visibility: hidden0;
+        visibility: visible;
+        transition-delay: 0.06s;
+      }
+      .shot {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 26px 60px -32px rgba(27, 23, 18, 0.3);
+        overflow: hidden;
+        min-height: 400px;
+        display: flex;
+      }
+      .new-pill {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 7px 14px;
+        border-radius: 999px;
+      }
+      .new-pill .ic {
+        width: 12px;
+        height: 12px;
+      }
+      .shot .app {
+        aspect-ratio: auto;
+        flex: 1;
+      }
+      .shot .app-side {
+        width: 100%;
+      }
+      .grp-wrap {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 150px;
+        min-width: 0;
+      }
+      .grp-col {
+        border-right: 1px solid var(--line);
+      }
+      .grp {
+        padding: 15px 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .grp-label {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin-bottom: 8px;
+      }
+      .g-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 10px;
+        border-radius: 10px;
+      }
+      .g-item .ic {
+        width: 13px;
+        height: 13px;
+        color: #c4b99f;
+      }
+      .g-t {
+        font-size: 12.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .g-item .tag {
+        margin-left: auto;
+      }
+      .rail {
+        padding: 15px 12px;
+      }
+      .rail .tag {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 11px;
+        margin-bottom: 7px;
+      }
+      .rail .tag i {
+        font-style: normal;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        color: var(--ink-3);
+      }
+      .shot-search {
+        flex: 1;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .srch-bar {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        border: 1.5px solid var(--accent);
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px 15px;
+        box-shadow: 0 10px 26px -14px rgba(224, 80, 42, 0.45);
+      }
+      .srch-bar .ic {
+        width: 16px;
+        height: 16px;
+        color: var(--accent-deep);
+      }
+      .srch-q {
+        font-size: 13.5px;
+        font-weight: 600;
+      }
+      .srch-count {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.08em;
+        color: var(--ink-3);
+        margin: 16px 4px 8px;
+      }
+      .srch-res {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .srch-res .g-item {
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
+        padding: 12px 6px;
+      }
+      .srch-res .dim {
+        opacity: 0.32;
+      }
+
+      /* ---------- Steps ---------- */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 64px;
+        counter-reset: step;
+      }
+      .step {
+        position: relative;
+        padding-top: 44px;
+      }
+      .step::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 36px;
+        right: -40px;
+        height: 2px;
+        background: var(--line-2);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.9s cubic-bezier(0.6, 0, 0.3, 1) var(--sd, 0s);
+      }
+      .step:last-child::before {
+        display: none;
+      }
+      .steps.in .step::before {
+        transform: scaleX(1);
+      }
+      .step-dot {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--ink);
+        background: var(--paper);
+        transition:
+          background 0.5s var(--sd, 0s),
+          border-color 0.5s var(--sd, 0s),
+          box-shadow 0.5s var(--sd, 0s);
+      }
+      .steps.in .step-dot {
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 5px var(--accent-soft);
+      }
+      .step-num {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        color: var(--accent-deep);
+        margin-bottom: 10px;
+      }
+      .step h3 {
+        font-size: 1.4rem;
+        margin-bottom: 9px;
+      }
+      .step p {
+        color: var(--ink-2);
+        font-size: 0.97rem;
+        max-width: 300px;
+      }
+
+      /* ---------- Benefits ---------- */
+      .benefit-list {
+        margin-top: 48px;
+        border-bottom: 1px solid var(--line);
+      }
+      .benefit-list li {
+        position: relative;
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 20px;
+        align-items: center;
+        padding: 28px 10px;
+        border-top: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .benefit-list li::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--accent-soft);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.6, 0, 0.3, 1);
+        z-index: 0;
+      }
+      .benefit-list li > * {
+        position: relative;
+        z-index: 1;
+      }
+      .b-idx {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--ink-3);
+        transition: color 0.3s;
+      }
+      .benefit-list h3 {
+        font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+        transition: transform 0.35s;
+      }
+      .benefit-list p {
+        color: var(--ink-2);
+        font-size: 0.97rem;
+        margin-top: 5px;
+        max-width: 560px;
+      }
+      .b-arrow {
+        width: 22px;
+        height: 22px;
+        color: var(--accent-deep);
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: 0.35s;
+      }
+      @media (hover: hover) {
+        .benefit-list li:hover::before {
+          transform: scaleX(1);
+        }
+        .benefit-list li:hover .b-idx {
+          color: var(--accent-deep);
+        }
+        .benefit-list li:hover h3 {
+          transform: translateX(8px);
+        }
+        .benefit-list li:hover .b-arrow {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ---------- Use cases ---------- */
+      .usecases {
+        background: var(--paper-2);
+      }
+      .uc-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 20px;
+        margin-top: 56px;
+      }
+      .uc {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.35s,
+          box-shadow 0.35s,
+          border-color 0.35s;
+      }
+      .uc:nth-child(1) {
+        grid-column: span 4;
+      }
+      .uc:nth-child(2),
+      .uc:nth-child(3),
+      .uc:nth-child(4),
+      .uc:nth-child(5) {
+        grid-column: span 2;
+      }
+      .uc h3 {
+        font-size: 1.28rem;
+        margin: 20px 0 8px;
+      }
+      .uc p {
+        color: var(--ink-2);
+        font-size: 0.95rem;
+        max-width: 44ch;
+      }
+      .uc.dark {
+        background: var(--dark);
+        border-color: var(--dline);
+      }
+      .uc.dark h3 {
+        color: var(--cream);
+      }
+      .uc.dark p {
+        color: var(--cream-mut);
+      }
+      .uc.dark .f-ic {
+        background: rgba(224, 80, 42, 0.16);
+        color: #f0906b;
+      }
+      .uc-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 22px;
+      }
+      .uc-tags span {
+        border: 1px solid var(--line-2);
+        background: var(--paper);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+
+      /* ---------- Banner (dark) ---------- */
+      .banner {
+        background: var(--dark);
+        color: var(--cream);
+        padding: clamp(88px, 10vw, 140px) 0 0;
+        overflow: hidden;
+      }
+      .noise::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      .banner .sec-head {
+        max-width: 760px;
+      }
+      .banner h2 {
+        color: var(--cream);
+      }
+      .bn-sub {
+        margin-top: 18px;
+        color: var(--cream-mut);
+        font-size: 1.08rem;
+        max-width: 520px;
+      }
+      .banner-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 26px;
+        font-weight: 600;
+        color: var(--accent);
+        border-bottom: 2px solid rgba(224, 80, 42, 0.4);
+        padding-bottom: 4px;
+        transition:
+          color 0.25s,
+          border-color 0.25s;
+      }
+      .banner-link .ic {
+        width: 17px;
+        height: 17px;
+        transition: transform 0.25s;
+      }
+      .banner-link:hover {
+        color: #f07b54;
+        border-color: #f07b54;
+      }
+      .banner-link:hover .ic {
+        transform: translateX(4px);
+      }
+      .bn-stage {
+        position: relative;
+        margin-top: clamp(48px, 6vw, 72px);
+      }
+      .bn-card {
+        position: absolute;
+        z-index: 0;
+        width: 158px;
+        background: #201a13;
+        border: 1px solid #352b1e;
+        border-radius: 12px;
+        padding: 13px 15px;
+        animation: drift 12s ease-in-out infinite alternate;
+        box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.6);
+      }
+      .bn-card strong {
+        display: block;
+        font-size: 12px;
+        color: var(--cream);
+        margin-bottom: 3px;
+      }
+      .bn-card span {
+        font-size: 10.5px;
+        color: #8d8170;
+        line-height: 1.45;
+      }
+      @keyframes drift {
+        from {
+          transform: rotate(var(--r, 0deg)) translateY(0);
+        }
+        to {
+          transform: rotate(var(--r, 0deg)) translateY(-13px);
+        }
+      }
+      .bn-dot {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.45;
+        animation: bob 8s ease-in-out infinite;
+      }
+      .banner .browser {
+        max-width: 940px;
+        margin-inline: auto;
+        border-color: #322920;
+        box-shadow: 0 44px 90px -40px rgba(0, 0, 0, 0.75);
+      }
+      .banner .app {
+        aspect-ratio: 1.75;
+      }
+
+      /* ---------- FAQ ---------- */
+      .faq-wrap {
+        max-width: 760px;
+        margin: 52px auto 0;
+        border-top: 1px solid var(--line);
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-h {
+        font-family: var(--serif);
+      }
+      .faq-q {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 24px 4px;
+        text-align: left;
+      }
+      .faq-q h3 {
+        font-size: clamp(1.1rem, 2vw, 1.28rem);
+        font-weight: 500;
+        transition: color 0.25s;
+      }
+      .faq-q:hover h3 {
+        color: var(--accent-deep);
+      }
+      .faq-ic {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--line-2);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        flex: none;
+        transition:
+          transform 0.35s,
+          background 0.3s,
+          color 0.3s,
+          border-color 0.3s;
+      }
+      .faq-ic .ic {
+        width: 14px;
+        height: 14px;
+      }
+      .faq-item.open .faq-ic {
+        transform: rotate(45deg);
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+      }
+      .faq-a {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .faq-item.open .faq-a {
+        grid-template-rows: 1fr;
+      }
+      .faq-a-inner {
+        overflow: hidden;
+      }
+      .faq-a p {
+        color: var(--ink-2);
+        padding: 0 44px 26px 4px;
+        max-width: 640px;
+      }
+      .faq-a a {
+        font-weight: 600;
+        color: var(--accent-deep);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* ---------- Final CTA ---------- */
+      .cta-panel {
+        position: relative;
+        background: var(--dark);
+        border-radius: 28px;
+        padding: clamp(64px, 8vw, 110px) 28px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .cta-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle,
+          rgba(245, 239, 228, 0.09) 1px,
+          transparent 1.4px
+        );
+        background-size: 26px 26px;
+        -webkit-mask-image: radial-gradient(
+          ellipse at center,
+          #000 30%,
+          transparent 75%
+        );
+        mask-image: radial-gradient(
+          ellipse at center,
+          #000 30%,
+          transparent 75%
+        );
+      }
+      .cta-panel > * {
+        position: relative;
+      }
+      .cta-panel h2 {
+        color: var(--cream);
+        font-size: clamp(2.1rem, 4.8vw, 3.4rem);
+        max-width: 680px;
+        margin: 0 auto;
+      }
+      .cta-panel p {
+        color: var(--cream-mut);
+        margin: 18px auto 0;
+        max-width: 440px;
+        font-size: 1.08rem;
+      }
+      .cta-btns {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 36px;
+      }
+
+      /* ---------- Footer ---------- */
+      .site-footer {
+        background: var(--dark);
+        color: var(--cream);
+      }
+      .foot-top {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr auto;
+        gap: 44px;
+        padding: 60px 0 44px;
+        align-items: start;
+      }
+      .foot-brand .brand-name {
+        color: var(--cream);
+      }
+      .foot-brand .brand-name em {
+        color: #f0906b;
+      }
+      .foot-tag {
+        color: #8d8170;
+        font-size: 0.95rem;
+        margin-top: 14px;
+        max-width: 260px;
+      }
+      .foot-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+      }
+      .foot-nav a {
+        color: var(--cream-mut);
+        font-size: 0.95rem;
+        transition: color 0.25s;
+        width: fit-content;
+      }
+      .foot-nav a:hover {
+        color: var(--cream);
+      }
+      .foot-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-top: 1px solid var(--dline);
+        padding: 24px 0;
+        color: #8d8170;
+        font-size: 0.88rem;
+      }
+      .to-top {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--cream-mut);
+        transition: color 0.25s;
+      }
+      .to-top .ic {
+        width: 15px;
+        height: 15px;
+        transform: rotate(-90deg);
+      }
+      .to-top:hover {
+        color: var(--cream);
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .feat.wide {
+          grid-column: span 2;
+        }
+        .uc-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .uc:nth-child(1) {
+          grid-column: span 2;
+        }
+        .uc:nth-child(n + 2) {
+          grid-column: span 1;
+        }
+        .showcase {
+          grid-template-columns: 1fr;
+          gap: 26px;
+        }
+        .shot-tabs {
+          flex-direction: row;
+          overflow-x: auto;
+          gap: 10px;
+          padding-bottom: 8px;
+          scroll-snap-type: x proximity;
+        }
+        .shot-tab {
+          min-width: 215px;
+          flex: none;
+          scroll-snap-align: start;
+        }
+        .sol-grid {
+          grid-template-columns: 1fr;
+          gap: 56px;
+        }
+        .sol-copy {
+          max-width: 560px;
+        }
+      }
+      @media (max-width: 900px) {
+        .nav-links {
+          display: none;
+        }
+        .nav-toggle {
+          display: flex;
+        }
+        .mobile-menu {
+          display: block;
+          visibility: hidden;
+        }
+        .menu-open .mobile-menu {
+          visibility: visible;
+        }
+        .nav-cta {
+          display: none;
+        }
+      }
+      @media (max-width: 768px) {
+        .steps {
+          grid-template-columns: 1fr;
+          gap: 38px;
+        }
+        .step {
+          padding: 0 0 0 46px;
+        }
+        .step::before {
+          top: 36px;
+          left: 8px;
+          right: auto;
+          bottom: -38px;
+          width: 2px;
+          height: auto;
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        .steps.in .step::before {
+          transform: scaleY(1);
+        }
+        .step-dot {
+          top: 2px;
+        }
+        .benefit-list li {
+          grid-template-columns: 48px 1fr;
+          padding: 24px 4px;
+        }
+        .b-arrow {
+          display: none;
+        }
+        .foot-top {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .bn-card {
+          display: none;
+        }
+        .trust-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+      @media (max-width: 640px) {
+        .container {
+          width: calc(100% - 40px);
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .feat.wide {
+          grid-column: span 1;
+          grid-template-columns: 1fr;
+        }
+        .uc-grid {
+          grid-template-columns: 1fr;
+        }
+        .uc:nth-child(n) {
+          grid-column: span 1;
+        }
+        .p-grid {
+          grid-template-columns: 1fr;
+        }
+        .p-card {
+          max-width: 560px;
+        }
+        .browser {
+          aspect-ratio: auto;
+        }
+        .app {
+          grid-template-columns: 1fr;
+          aspect-ratio: auto;
+        }
+        .app-side {
+          display: none;
+        }
+        .app-main {
+          min-height: 360px;
+        }
+        .chip-in {
+          font-size: 0.76rem;
+          padding: 7px 12px;
+          gap: 6px;
+        }
+        .chip-2 {
+          left: -4px;
+        }
+        .chip-3 {
+          right: -4px;
+        }
+        .grp-wrap {
+          grid-template-columns: 1fr;
+        }
+        .rail {
+          display: none;
+        }
+        .faq-a p {
+          padding-right: 8px;
+        }
+      }
+      @media (max-width: 420px) {
+        .hero h1 .hl {
+          white-space: normal;
+        }
+        .btn {
+          padding: 15px 24px;
+          font-size: 0.95rem;
+        }
+      }
+      /* ---------- Reduced motion ---------- */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          transition-delay: 0s !important;
+        }
+        .hu,
+        .browser.hu,
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+        .hl-swash path,
+        .chip-1 .chip-in {
+          opacity: 1;
+          stroke-dashoffset: 0;
+          transform: none;
+        }
+        .float-wrap,
+        .chip,
+        .bn-card,
+        .bn-dot {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <!-- SVG icon sprite -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <symbol id="i-arrow-r" viewBox="0 0 24 24">
+        <path d="M4.5 12h15M13 5.5 19.5 12 13 18.5" />
+      </symbol>
+      <symbol id="i-arrow-d" viewBox="0 0 24 24">
+        <path d="M12 4.5v15M5.5 13 12 19.5 18.5 13" />
+      </symbol>
+      <symbol id="i-up" viewBox="0 0 24 24">
+        <path d="M12 19.5v-15M5.5 11 12 4.5 18.5 11" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="m4.5 12.5 5 5L19.5 7" />
+      </symbol>
+      <symbol id="i-check-c" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="m8.2 12.4 2.6 2.6 5-5.6" />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m20.5 20.5-4.8-4.8" />
+      </symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24">
+        <path d="M12.5 20.5H21M15.7 4.3a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" />
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path d="m12 3.5 8.5 4.7L12 12.9 3.5 8.2Z" />
+        <path d="m4.5 12.7 7.5 4.2 7.5-4.2M4.5 16.8l7.5 4.2 7.5-4.2" />
+      </symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24">
+        <path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11.5H12l1-7.5Z" />
+      </symbol>
+      <symbol id="i-buried" viewBox="0 0 24 24">
+        <path d="M4 6.5h16M4 11h16M4 15.5h9.5M4 20h5" />
+      </symbol>
+      <symbol id="i-scatter" viewBox="0 0 24 24">
+        <circle cx="6" cy="6.5" r="2.1" />
+        <circle cx="17.5" cy="4.8" r="2.1" />
+        <circle cx="8.5" cy="17" r="2.1" />
+        <circle cx="18" cy="15" r="2.1" />
+        <path d="M7.8 8.2 16 13.2" stroke-dasharray="2 3" />
+      </symbol>
+      <symbol id="i-lost" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m20.5 20.5-4.8-4.8M9 9l4 4M13 9l-4 4" />
+      </symbol>
+      <symbol id="i-layout" viewBox="0 0 24 24">
+        <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
+        <path d="M3.5 9.5h17M9.5 20.5v-11" />
+      </symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5" />
+        <path
+          d="M3.5 12h17M12 3.5c2.4 2.3 3.6 5.2 3.6 8.5s-1.2 6.2-3.6 8.5c-2.4-2.3-3.6-5.2-3.6-8.5S9.6 5.8 12 3.5Z"
+        />
+      </symbol>
+      <symbol id="i-save" viewBox="0 0 24 24">
+        <path
+          d="M5.5 4.5H15l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V6a1.5 1.5 0 0 1 1.5-1.5Z"
+        />
+        <path d="M8 4.5v5h7v-5M8 15.5h8" />
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect x="5" y="10.5" width="14" height="9.5" rx="2" />
+        <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+      </symbol>
+      <symbol id="i-cap" viewBox="0 0 24 24">
+        <path d="m12 4 10 5-10 5L2 9Z" />
+        <path d="M6.5 11.5V16c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3v-4.5M22 9v5" />
+      </symbol>
+      <symbol id="i-code" viewBox="0 0 24 24">
+        <path d="m8.5 8-4.5 4 4.5 4M15.5 8l4.5 4-4.5 4" />
+      </symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24">
+        <path
+          d="M9 18h6M10 21h4M12 3a6 6 0 0 1 4 10.5c-.8.7-1 1.5-1 2.5h-6c0-1-.2-1.8-1-2.5A6 6 0 0 1 12 3Z"
+        />
+      </symbol>
+      <symbol id="i-case" viewBox="0 0 24 24">
+        <rect x="3" y="7.5" width="18" height="12.5" rx="2" />
+        <path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3 12.5h18" />
+      </symbol>
+      <symbol id="i-coffee" viewBox="0 0 24 24">
+        <path
+          d="M17 9h1.5a3.5 3.5 0 1 1 0 7H17M3.5 9H17v7a4 4 0 0 1-4 4H7.5a4 4 0 0 1-4-4Z"
+        />
+        <path d="M7 2.5V5M11 2.5V5M15 2.5V5" />
+      </symbol>
+      <symbol id="i-grip" viewBox="0 0 24 24">
+        <circle cx="9" cy="6" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="15" cy="6" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="9" cy="12" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="15" cy="12" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="9" cy="18" r="1.4" fill="currentColor" stroke="none" />
+        <circle cx="15" cy="18" r="1.4" fill="currentColor" stroke="none" />
+      </symbol>
+    </svg>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav" aria-label="Main">
+          <a class="brand" href="#top" aria-label="NoteCraft — back to top">
+            <svg class="logo" viewBox="0 0 34 34" aria-hidden="true">
+              <rect width="34" height="34" rx="9.5" fill="#1B1712" />
+              <path
+                d="M11.5 7.5h8.2l6.3 6.3V24a2.5 2.5 0 0 1-2.5 2.5h-12A2.5 2.5 0 0 1 9 24V10a2.5 2.5 0 0 1 2.5-2.5Z"
+                fill="#FAF7F1"
+              />
+              <path
+                d="M19.7 7.5v3.9a2.4 2.4 0 0 0 2.4 2.4h3.9Z"
+                fill="#E0502A"
+              />
+              <path
+                d="M13 17h8M13 20.5h5.5"
+                stroke="#1B1712"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                fill="none"
+              />
+            </svg>
+            <span class="brand-name">Note<em>Craft</em></span>
+          </a>
+          <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#use-cases">Use Cases</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a
+              class="btn btn-primary btn-sm nav-cta"
+              href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+              target="_blank"
+              rel="noopener"
+              >Try NoteCraft</a
+            >
+            <button
+              class="nav-toggle"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              aria-label="Open menu"
+            >
+              <span></span><span></span>
+            </button>
+          </div>
+        </nav>
+      </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <nav aria-label="Mobile">
+          <a href="#features" style="--i: 0">Features</a>
+          <a href="#how" style="--i: 1">How It Works</a>
+          <a href="#use-cases" style="--i: 2">Use Cases</a>
+          <a href="#faq" style="--i: 3">FAQ</a>
+        </nav>
+        <a
+          class="btn btn-accent"
+          href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+          target="_blank"
+          rel="noopener"
+          >Try NoteCraft
+          <svg class="ic" aria-hidden="true"><use href="#i-arrow-r" /></svg
+        ></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================= HERO ================= -->
+      <section class="hero" aria-label="Introduction">
+        <div class="container hero-inner">
+          <span class="badge hu" style="--hd: 0.05s"
+            ><span class="badge-dot" aria-hidden="true"></span>Your Ideas.
+            Organized.</span
+          >
+          <h1 class="hu" style="--hd: 0.15s">
+            Turn Your Thoughts Into
+            <span class="hl"
+              >Organized Notes<svg
+                class="hl-swash"
+                viewBox="0 0 230 14"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 10 C 60 3.5, 160 3, 226 7.5"
+                  pathLength="100"
+                /></svg></span
+            >.
+          </h1>
+          <p class="hero-sub hu" style="--hd: 0.25s">
+            NoteCraft gives you a simple and powerful workspace to capture
+            ideas, organize information, and keep your notes accessible whenever
+            you need them.
+          </p>
+          <div class="hero-cta hu" style="--hd: 0.35s">
+            <a
+              class="btn btn-primary"
+              href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+              target="_blank"
+              rel="noopener"
+              >Try NoteCraft
+              <svg class="ic" aria-hidden="true"><use href="#i-arrow-r" /></svg
+            ></a>
+            <a class="btn btn-ghost" href="#features"
+              >Explore Features
+              <svg class="ic" aria-hidden="true"><use href="#i-arrow-d" /></svg
+            ></a>
+          </div>
+
+          <div class="hero-visual">
+            <div class="float-wrap">
+              <div
+                class="browser hu"
+                style="--hd: 0.5s"
+                role="img"
+                aria-label="Preview of the NoteCraft app: a sidebar listing saved notes beside an open note editor."
+              >
+                <div class="b-bar" aria-hidden="true">
+                  <span class="b-dots"><i></i><i></i><i></i></span>
+                  <span class="b-addr"
+                    ><svg class="ic"><use href="#i-lock" /></svg>notecraft</span
+                  >
+                  <span class="b-spacer"></span>
+                </div>
+                <div class="app" aria-hidden="true">
+                  <aside class="app-side">
+                    <div class="as-brand">
+                      <svg class="as-logo" viewBox="0 0 34 34">
+                        <rect width="34" height="34" rx="9.5" fill="#1B1712" />
+                        <path
+                          d="M11.5 7.5h8.2l6.3 6.3V24a2.5 2.5 0 0 1-2.5 2.5h-12A2.5 2.5 0 0 1 9 24V10a2.5 2.5 0 0 1 2.5-2.5Z"
+                          fill="#FAF7F1"
+                        />
+                        <path
+                          d="M19.7 7.5v3.9a2.4 2.4 0 0 0 2.4 2.4h3.9Z"
+                          fill="#E0502A"
+                        />
+                        <path
+                          d="M13 17h8M13 20.5h5.5"
+                          stroke="#1B1712"
+                          stroke-width="1.9"
+                          stroke-linecap="round"
+                          fill="none"
+                        /></svg
+                      >NoteCraft
+                    </div>
+                    <div class="as-search">
+                      <svg class="ic"><use href="#i-search" /></svg>Search
+                      notes…
+                    </div>
+                    <div class="as-label">Notes</div>
+                    <div class="as-item active">
+                      <div class="as-t">Weekend project ideas</div>
+                      <div class="as-d">Tue</div>
+                      <div class="as-s">Sketching a small tool that turns…</div>
+                    </div>
+                    <div class="as-item">
+                      <div class="as-t">Reading list — autumn</div>
+                      <div class="as-d">Mon</div>
+                      <div class="as-s">
+                        Three essays on attention and focus…
+                      </div>
+                    </div>
+                    <div class="as-item">
+                      <div class="as-t">Trip packing checklist</div>
+                      <div class="as-d">Sun</div>
+                      <div class="as-s">Passport, chargers, light jacket…</div>
+                    </div>
+                    <div class="as-item">
+                      <div class="as-t">Weeknight noodles</div>
+                      <div class="as-d">Sun</div>
+                      <div class="as-s">Garlic, chili oil, scallions, soy…</div>
+                    </div>
+                  </aside>
+                  <div class="app-main">
+                    <div class="am-head">
+                      <div class="am-title">Weekend project ideas</div>
+                      <div class="am-meta">
+                        <span class="tag">Ideas</span
+                        ><span class="tag tag-n">Personal</span>
+                        <span class="save-pill"
+                          ><svg class="ic"><use href="#i-check" /></svg
+                          >Saved</span
+                        >
+                      </div>
+                    </div>
+                    <div class="am-body">
+                      <p>
+                        Sketching a small tool that turns messy thoughts into
+                        clean, structured notes — capture first, organize in
+                        seconds.
+                      </p>
+                      <p class="am-type">
+                        <span id="typeTarget"></span><span class="caret"></span>
+                      </p>
+                      <ul class="am-checks">
+                        <li class="done">
+                          <span class="cb"
+                            ><svg class="ic"><use href="#i-check" /></svg></span
+                          >Prototype the layout
+                        </li>
+                        <li class="done">
+                          <span class="cb"
+                            ><svg class="ic"><use href="#i-check" /></svg></span
+                          >Pick a color palette
+                        </li>
+                        <li>
+                          <span class="cb"></span>Write down the first notes
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="am-foot">
+                      <span class="wcount">142 words</span
+                      ><span>Edited just now</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chip chip-1" aria-hidden="true">
+              <span class="chip-in"
+                ><svg class="ic"><use href="#i-check-c" /></svg>Note saved</span
+              >
+            </div>
+            <div class="chip chip-2" aria-hidden="true">
+              <span class="chip-in"
+                ><svg class="ic"><use href="#i-layers" /></svg>Organized</span
+              >
+            </div>
+            <div class="chip chip-3" aria-hidden="true">
+              <span class="chip-in"
+                ><svg class="ic"><use href="#i-search" /></svg>Quick
+                Search</span
+              >
+            </div>
+            <div class="chip chip-4" aria-hidden="true">
+              <span class="chip-in"
+                ><svg class="ic"><use href="#i-layout" /></svg>Your
+                workspace</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TRUST BAR ================= -->
+      <section class="trustbar" aria-label="Product statement">
+        <div class="container trust-inner">
+          <p class="trust-statement reveal">
+            “A simple workspace for ideas, notes, and everything worth
+            remembering.”
+          </p>
+          <ul class="trust-items reveal" style="--d: 0.1s">
+            <li>
+              <svg class="ic" aria-hidden="true"><use href="#i-zap" /></svg>Fast
+            </li>
+            <li>
+              <svg class="ic" aria-hidden="true"><use href="#i-check" /></svg
+              >Simple
+            </li>
+            <li>
+              <svg class="ic" aria-hidden="true"><use href="#i-layers" /></svg
+              >Organized
+            </li>
+            <li>
+              <svg class="ic" aria-hidden="true"><use href="#i-globe" /></svg
+              >Accessible
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= PROBLEM ================= -->
+      <section class="sec" aria-label="The problem">
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">The problem</span>
+            <h2 style="margin-top: 16px">Your ideas shouldn't get lost.</h2>
+            <p class="sec-sub">
+              Most note-taking doesn't fail at the writing — it fails at the
+              keeping. Thoughts pile up faster than you can organize them.
+            </p>
+          </div>
+          <div class="p-grid">
+            <article class="p-card reveal">
+              <span class="p-icon"
+                ><svg class="ic" aria-hidden="true">
+                  <use href="#i-scatter" /></svg
+              ></span>
+              <h3>Scattered Ideas</h3>
+              <p>
+                Your thoughts are everywhere — sticky notes, tabs, random apps —
+                and difficult to manage.
+              </p>
+            </article>
+            <article class="p-card reveal" style="--d: 0.1s">
+              <span class="p-icon"
+                ><svg class="ic" aria-hidden="true">
+                  <use href="#i-buried" /></svg
+              ></span>
+              <h3>Information Overload</h3>
+              <p>
+                Important information gets buried under unnecessary clutter and
+                noise.
+              </p>
+            </article>
+            <article class="p-card reveal" style="--d: 0.2s">
+              <span class="p-icon"
+                ><svg class="ic" aria-hidden="true"><use href="#i-lost" /></svg
+              ></span>
+              <h3>Lost Notes</h3>
+              <p>
+                The note you need is somewhere — you just can't remember where.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SOLUTION ================= -->
+      <section class="sec solution" aria-label="The solution">
+        <div class="container sol-grid">
+          <div class="sol-copy reveal">
+            <span class="eyebrow">The solution</span>
+            <h2 style="margin-top: 16px">Meet NoteCraft.</h2>
+            <p class="sec-sub">
+              NoteCraft gives you a focused digital space where you can capture,
+              organize, and manage your notes without unnecessary complexity.
+            </p>
+            <ul class="sol-list">
+              <li>
+                <span class="chk"
+                  ><svg class="ic" aria-hidden="true">
+                    <use href="#i-check" /></svg></span
+                >Capture ideas the moment they happen
+              </li>
+              <li>
+                <span class="chk"
+                  ><svg class="ic" aria-hidden="true">
+                    <use href="#i-check" /></svg></span
+                >Keep everything structured in one workspace
+              </li>
+              <li>
+                <span class="chk"
+                  ><svg class="ic" aria-hidden="true">
+                    <use href="#i-check" /></svg></span
+                >Find any note again in seconds
+              </li>
+            </ul>
+            <a class="link-arrow" href="#how"
+              >See how it works
+              <svg class="ic" aria-hidden="true"><use href="#i-arrow-r" /></svg
+            ></a>
+          </div>
+          <div class="sol-visual reveal" style="--d: 0.15s">
+            <div class="sol-card">
+              <span class="float-tag" aria-hidden="true"
+                ><svg class="ic"><use href="#i-check" /></svg>Saved</span
+              >
+              <div class="app" aria-hidden="true">
+                <div class="app-main">
+                  <div class="am-head">
+                    <div class="am-title">Reading notes</div>
+                    <div class="am-meta">
+                      <span class="tag">Notes</span
+                      ><span class="tag tag-n">Focus</span>
+                    </div>
+                  </div>
+                  <div class="am-body">
+                    <p>
+                      Key idea — attention is a resource. Protect it, and spend
+                      it deliberately on what matters.
+                    </p>
+                    <div class="sol-quote">
+                      “What you focus on shapes what you get done.”
+                    </div>
+                    <ul class="am-checks">
+                      <li class="done">
+                        <span class="cb"
+                          ><svg class="ic"><use href="#i-check" /></svg></span
+                        >Highlight the three big takeaways
+                      </li>
+                      <li class="done">
+                        <span class="cb"
+                          ><svg class="ic"><use href="#i-check" /></svg></span
+                        >Add questions to revisit later
+                      </li>
+                      <li><span class="cb"></span>Summarize in my own words</li>
+                    </ul>
+                  </div>
+                  <div class="am-foot">
+                    <span>87 words</span><span>Edited just now</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FEATURES ================= -->
+      <section class="sec" id="features" aria-label="Features">
+        <div class="container">
+          <div class="sec-head center reveal">
+            <span class="eyebrow">Features</span>
+            <h2 style="margin-top: 16px">
+              Everything you need to manage your notes.
+            </h2>
+            <p class="sec-sub">
+              No bloat, no learning curve — just the essentials, done well.
+            </p>
+          </div>
+          <div class="features-grid">
+            <article class="feat wide reveal">
+              <div>
+                <span class="f-ic"
+                  ><svg class="ic" aria-hidden="true"><use href="#i-pen" /></svg
+                ></span>
+                <h3>Easy note creation</h3>
+                <p>
+                  Open a new note and start typing. No forms, no friction, no
+                  setup steps between you and the thought.
+                </p>
+              </div>
+              <div class="feat-vis" aria-hidden="true">
+                <span class="fv-btn"
+                  ><svg class="ic"><use href="#i-plus" /></svg>New note</span
+                >
+                <span class="fv-input"
+                  >Q3 ideas &amp; plans<span class="fv-caret"></span
+                ></span>
+              </div>
+            </article>
+            <article class="feat reveal" style="--d: 0.08s">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true">
+                  <use href="#i-layout" /></svg
+              ></span>
+              <h3>Organized workspace</h3>
+              <p>
+                A clear home for every note, so your list stays scannable
+                instead of overwhelming.
+              </p>
+            </article>
+            <article class="feat reveal" style="--d: 0.16s">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true">
+                  <use href="#i-search" /></svg
+              ></span>
+              <h3>Quick access</h3>
+              <p>
+                Find the note you need in seconds, without digging through piles
+                of content.
+              </p>
+            </article>
+            <article class="feat reveal">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true"><use href="#i-zap" /></svg
+              ></span>
+              <h3>Fast &amp; lightweight</h3>
+              <p>
+                NoteCraft loads quickly and stays out of your way — writing
+                comes first.
+              </p>
+            </article>
+            <article class="feat reveal" style="--d: 0.08s">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true"><use href="#i-save" /></svg
+              ></span>
+              <h3>Your notes, saved</h3>
+              <p>
+                Everything you write lives in your NoteCraft workspace, ready
+                the next time you open it.
+              </p>
+            </article>
+            <article class="feat wide reveal" style="--d: 0.16s">
+              <div>
+                <span class="f-ic"
+                  ><svg class="ic" aria-hidden="true">
+                    <use href="#i-globe" /></svg
+                ></span>
+                <h3>Works right in your browser</h3>
+                <p>
+                  No downloads, no installation, no setup. Open NoteCraft in any
+                  modern browser and start writing.
+                </p>
+              </div>
+              <div class="feat-vis" aria-hidden="true">
+                <span class="fv-browser"><i></i><i></i><i></i></span>
+                <span class="fv-url"
+                  ><svg class="ic"><use href="#i-lock" /></svg
+                  >github.io/Notecraft</span
+                >
+              </div>
+            </article>
+          </div>
+          <div class="features-cta reveal">
+            <a
+              class="link-arrow"
+              href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+              target="_blank"
+              rel="noopener"
+              >Start taking notes
+              <svg class="ic" aria-hidden="true"><use href="#i-arrow-r" /></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SHOWCASE ================= -->
+      <section class="sec showcase-sec" id="showcase" aria-label="Product tour">
+        <div class="container">
+          <div class="sec-head center reveal">
+            <span class="eyebrow">Product tour</span>
+            <h2 style="margin-top: 16px">See NoteCraft in action.</h2>
+            <p class="hint">( click through the views )</p>
+          </div>
+          <div class="showcase reveal">
+            <div class="shot-tabs" role="tablist" aria-label="NoteCraft views">
+              <button
+                class="shot-tab active"
+                role="tab"
+                id="tab1"
+                aria-selected="true"
+                aria-controls="shot1"
+              >
+                <span class="st-num">01</span>
+                <span class="st-body"
+                  ><strong>Main Workspace</strong
+                  ><em>Notes and editor, side by side.</em></span
+                >
+                <svg class="ic st-arrow" aria-hidden="true">
+                  <use href="#i-arrow-r" />
+                </svg>
+              </button>
+              <button
+                class="shot-tab"
+                role="tab"
+                id="tab2"
+                aria-selected="false"
+                aria-controls="shot2"
+              >
+                <span class="st-num">02</span>
+                <span class="st-body"
+                  ><strong>Note Creation</strong
+                  ><em>Start a new note instantly.</em></span
+                >
+                <svg class="ic st-arrow" aria-hidden="true">
+                  <use href="#i-arrow-r" />
+                </svg>
+              </button>
+              <button
+                class="shot-tab"
+                role="tab"
+                id="tab3"
+                aria-selected="false"
+                aria-controls="shot3"
+              >
+                <span class="st-num">03</span>
+                <span class="st-body"
+                  ><strong>Note Organization</strong
+                  ><em>Group notes so ideas live together.</em></span
+                >
+                <svg class="ic st-arrow" aria-hidden="true">
+                  <use href="#i-arrow-r" />
+                </svg>
+              </button>
+              <button
+                class="shot-tab"
+                role="tab"
+                id="tab4"
+                aria-selected="false"
+                aria-controls="shot4"
+              >
+                <span class="st-num">04</span>
+                <span class="st-body"
+                  ><strong>Search &amp; Navigation</strong
+                  ><em>Jump straight to what you need.</em></span
+                >
+                <svg class="ic st-arrow" aria-hidden="true">
+                  <use href="#i-arrow-r" />
+                </svg>
+              </button>
+            </div>
+            <div class="shot-stage">
+              <!-- View 1 -->
+              <div
+                class="shot-panel active"
+                role="tabpanel"
+                id="shot1"
+                aria-labelledby="tab1"
+              >
+                <div class="shot" aria-hidden="true">
+                  <div class="app">
+                    <aside class="app-side">
+                      <div class="as-label">Notes</div>
+                      <div class="as-item active">
+                        <div class="as-t">Q3 planning</div>
+                        <div class="as-d">Tue</div>
+                        <div class="as-s">Goals, timeline, owners…</div>
+                      </div>
+                      <div class="as-item">
+                        <div class="as-t">Interview questions</div>
+                        <div class="as-d">Mon</div>
+                        <div class="as-s">Five openers, warm-up topics…</div>
+                      </div>
+                      <div class="as-item">
+                        <div class="as-t">Apartment hunting</div>
+                        <div class="as-d">Sat</div>
+                        <div class="as-s">Shortlist: three places near…</div>
+                      </div>
+                    </aside>
+                    <div class="app-main">
+                      <div class="am-head">
+                        <div class="am-title">Q3 planning</div>
+                        <div class="am-meta">
+                          <span class="tag">Work</span
+                          ><span class="tag tag-n">Planning</span>
+                        </div>
+                      </div>
+                      <div class="am-body">
+                        <p>
+                          Draft goals for the quarter, then break each one into
+                          weekly checkpoints.
+                        </p>
+                        <p style="margin-top: 12px">
+                          — ship the onboarding revision<br />— schedule user
+                          interviews<br />— draft the roadmap note
+                        </p>
+                      </div>
+                      <div class="am-foot">
+                        <span>64 words</span><span>Edited 2h ago</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- View 2 -->
+              <div
+                class="shot-panel"
+                role="tabpanel"
+                id="shot2"
+                aria-labelledby="tab2"
+              >
+                <div class="shot" aria-hidden="true">
+                  <span class="new-pill"
+                    ><svg class="ic"><use href="#i-plus" /></svg>New note</span
+                  >
+                  <div class="app">
+                    <aside class="app-side">
+                      <div class="as-label">Notes</div>
+                      <div class="as-item active">
+                        <div class="as-t">Untitled note</div>
+                        <div class="as-d">Now</div>
+                        <div class="as-s">Just started…</div>
+                      </div>
+                      <div class="as-item">
+                        <div class="as-t">Weekend project ideas</div>
+                        <div class="as-d">Tue</div>
+                        <div class="as-s">Sketching a small tool…</div>
+                      </div>
+                      <div class="as-item">
+                        <div class="as-t">Trip packing checklist</div>
+                        <div class="as-d">Sun</div>
+                        <div class="as-s">Passport, chargers…</div>
+                      </div>
+                    </aside>
+                    <div class="app-main">
+                      <div class="am-head">
+                        <div class="am-title">Untitled note</div>
+                        <div class="am-meta">
+                          <span class="tag tag-n">No tags yet</span>
+                        </div>
+                      </div>
+                      <div class="am-body">
+                        <p class="am-type"><span class="caret"></span></p>
+                        <p style="color: var(--ink-3)">
+                          Just start typing — the title, structure and
+                          organization can wait. Capture the thought while it's
+                          fresh.
+                        </p>
+                      </div>
+                      <div class="am-foot">
+                        <span>0 words</span><span>New note</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- View 3 -->
+              <div
+                class="shot-panel"
+                role="tabpanel"
+                id="shot3"
+                aria-labelledby="tab3"
+              >
+                <div class="shot" aria-hidden="true">
+                  <div class="grp-wrap">
+                    <div class="grp-col">
+                      <div class="grp">
+                        <div class="grp-label">
+                          <span>Ideas</span><span>2 notes</span>
+                        </div>
+                        <div class="g-item">
+                          <svg class="ic"><use href="#i-grip" /></svg
+                          ><span class="g-t">Weekend project ideas</span
+                          ><span class="tag">Ideas</span>
+                        </div>
+                        <div class="g-item">
+                          <svg class="ic"><use href="#i-grip" /></svg
+                          ><span class="g-t">Podcast episode sketch</span
+                          ><span class="tag">Ideas</span>
+                        </div>
+                      </div>
+                      <div class="grp">
+                        <div class="grp-label">
+                          <span>Work</span><span>2 notes</span>
+                        </div>
+                        <div class="g-item">
+                          <svg class="ic"><use href="#i-grip" /></svg
+                          ><span class="g-t">Q3 planning</span
+                          ><span class="tag tag-n">Work</span>
+                        </div>
+                        <div class="g-item">
+                          <svg class="ic"><use href="#i-grip" /></svg
+                          ><span class="g-t">Meeting — product sync</span
+                          ><span class="tag tag-n">Work</span>
+                        </div>
+                      </div>
+                    </div>
+                    <aside class="rail">
+                      <div class="grp-label"><span>Tags</span></div>
+                      <span class="tag">Ideas <i>2</i></span>
+                      <span class="tag tag-n">Work <i>2</i></span>
+                      <span class="tag tag-n">Personal <i>3</i></span>
+                      <span class="tag tag-n">Reading <i>1</i></span>
+                    </aside>
+                  </div>
+                </div>
+              </div>
+              <!-- View 4 -->
+              <div
+                class="shot-panel"
+                role="tabpanel"
+                id="shot4"
+                aria-labelledby="tab4"
+              >
+                <div class="shot" aria-hidden="true">
+                  <div class="shot-search">
+                    <div class="srch-bar">
+                      <svg class="ic"><use href="#i-search" /></svg
+                      ><span class="srch-q">trip</span
+                      ><span class="caret"></span>
+                    </div>
+                    <div class="srch-count">3 NOTES FOUND</div>
+                    <div class="srch-res">
+                      <div class="g-item">
+                        <span class="g-t"
+                          ><mark>trip</mark> packing checklist</span
+                        ><span class="tag">Personal</span>
+                      </div>
+                      <div class="g-item">
+                        <span class="g-t"
+                          ><mark>Trip</mark> — Kyoto itinerary</span
+                        ><span class="tag tag-n">Travel</span>
+                      </div>
+                      <div class="g-item">
+                        <span class="g-t">Weekend <mark>trip</mark> ideas</span
+                        ><span class="tag">Ideas</span>
+                      </div>
+                      <div class="g-item dim">
+                        <span class="g-t">Recipe: weeknight noodles</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOW IT WORKS ================= -->
+      <section class="sec" id="how" aria-label="How it works">
+        <div class="container">
+          <div class="sec-head center reveal">
+            <span class="eyebrow">How it works</span>
+            <h2 style="margin-top: 16px">Start in seconds.</h2>
+            <p class="sec-sub">
+              From opening NoteCraft to your first organized note — three small
+              steps.
+            </p>
+          </div>
+          <ol class="steps reveal">
+            <li class="step" style="--sd: 0s">
+              <span class="step-dot" aria-hidden="true"></span>
+              <span class="step-num">Step 01</span>
+              <h3>Open NoteCraft</h3>
+              <p>Launch the NoteCraft workspace right in your browser.</p>
+            </li>
+            <li class="step" style="--sd: 0.25s">
+              <span class="step-dot" aria-hidden="true"></span>
+              <span class="step-num">Step 02</span>
+              <h3>Capture your ideas</h3>
+              <p>
+                Create a note and write down whatever matters — ideas, lists,
+                plans.
+              </p>
+            </li>
+            <li class="step" style="--sd: 0.5s">
+              <span class="step-dot" aria-hidden="true"></span>
+              <span class="step-num">Step 03</span>
+              <h3>Stay organized</h3>
+              <p>
+                Keep your notes tidy and within reach, today and months from
+                now.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= WHY NOTECRAFT ================= -->
+      <section
+        class="sec"
+        id="why"
+        aria-label="Why NoteCraft"
+        style="padding-top: 0"
+      >
+        <div class="container">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Why NoteCraft</span>
+            <h2 style="margin-top: 16px">
+              Simple by design. Powerful when you need it.
+            </h2>
+          </div>
+          <ul class="benefit-list">
+            <li class="reveal">
+              <span class="b-idx">01</span>
+              <div>
+                <h3>Simple interface</h3>
+                <p>No clutter, no learning curve — just open it and write.</p>
+              </div>
+              <svg class="ic b-arrow" aria-hidden="true">
+                <use href="#i-arrow-r" />
+              </svg>
+            </li>
+            <li class="reveal">
+              <span class="b-idx">02</span>
+              <div>
+                <h3>Focused workspace</h3>
+                <p>One calm place for your thinking, free of distractions.</p>
+              </div>
+              <svg class="ic b-arrow" aria-hidden="true">
+                <use href="#i-arrow-r" />
+              </svg>
+            </li>
+            <li class="reveal">
+              <span class="b-idx">03</span>
+              <div>
+                <h3>Easy note management</h3>
+                <p>Create, edit, and organize notes without friction.</p>
+              </div>
+              <svg class="ic b-arrow" aria-hidden="true">
+                <use href="#i-arrow-r" />
+              </svg>
+            </li>
+            <li class="reveal">
+              <span class="b-idx">04</span>
+              <div>
+                <h3>Fast access to information</h3>
+                <p>Find any note in seconds, exactly when you need it.</p>
+              </div>
+              <svg class="ic b-arrow" aria-hidden="true">
+                <use href="#i-arrow-r" />
+              </svg>
+            </li>
+            <li class="reveal">
+              <span class="b-idx">05</span>
+              <div>
+                <h3>Clean experience</h3>
+                <p>A design that stays out of the way of your ideas.</p>
+              </div>
+              <svg class="ic b-arrow" aria-hidden="true">
+                <use href="#i-arrow-r" />
+              </svg>
+            </li>
+            <li class="reveal">
+              <span class="b-idx">06</span>
+              <div>
+                <h3>Designed for everyday use</h3>
+                <p>
+                  Light enough for quick thoughts, reliable for daily notes.
+                </p>
+              </div>
+              <svg class="ic b-arrow" aria-hidden="true">
+                <use href="#i-arrow-r" />
+              </svg>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= USE CASES ================= -->
+      <section class="sec usecases" id="use-cases" aria-label="Use cases">
+        <div class="container">
+          <div class="sec-head center reveal">
+            <span class="eyebrow">Use cases</span>
+            <h2 style="margin-top: 16px">Built for the way you think.</h2>
+            <p class="sec-sub">
+              However you work, NoteCraft bends to your habits — not the other
+              way around.
+            </p>
+          </div>
+          <div class="uc-grid">
+            <article class="uc reveal">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true"><use href="#i-cap" /></svg
+              ></span>
+              <h3>Students</h3>
+              <p>
+                Keep class notes, ideas, study material, and important
+                information organized.
+              </p>
+              <div class="uc-tags" aria-hidden="true">
+                <span>Lecture notes</span><span>Exam prep</span
+                ><span>Essay drafts</span><span>Research</span>
+              </div>
+            </article>
+            <article class="uc reveal" style="--d: 0.08s">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true"><use href="#i-code" /></svg
+              ></span>
+              <h3>Developers</h3>
+              <p>
+                Store technical notes, ideas, snippets, and project information.
+              </p>
+            </article>
+            <article class="uc reveal">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true"><use href="#i-bulb" /></svg
+              ></span>
+              <h3>Creators</h3>
+              <p>Capture ideas, content concepts, research, and inspiration.</p>
+            </article>
+            <article class="uc reveal" style="--d: 0.08s">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true"><use href="#i-case" /></svg
+              ></span>
+              <h3>Professionals</h3>
+              <p>
+                Organize meeting notes, tasks, ideas, and important information.
+              </p>
+            </article>
+            <article class="uc dark reveal" style="--d: 0.16s">
+              <span class="f-ic"
+                ><svg class="ic" aria-hidden="true">
+                  <use href="#i-coffee" /></svg
+              ></span>
+              <h3>Everyday users</h3>
+              <p>
+                Keep personal notes, reminders, ideas, and useful information in
+                one place.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VISUAL BANNER ================= -->
+      <section class="banner noise" aria-label="One place for everything">
+        <div class="bn-bg" aria-hidden="true">
+          <div
+            class="bn-card"
+            style="--r: -5deg; left: 5%; top: 14%; animation-duration: 13s"
+          >
+            <strong>Reading list</strong
+            ><span>Three essays on attention &amp; focus</span>
+          </div>
+          <div
+            class="bn-card"
+            style="--r: 4deg; right: 6%; top: 9%; animation-duration: 15s"
+          >
+            <strong>Meeting notes</strong
+            ><span>Follow-ups from product sync</span>
+          </div>
+          <div
+            class="bn-card"
+            style="--r: 3deg; left: 9%; bottom: 30%; animation-duration: 11s"
+          >
+            <strong>Trip ideas</strong><span>Kyoto in autumn — worth it?</span>
+          </div>
+          <div
+            class="bn-card"
+            style="--r: -4deg; right: 9%; bottom: 26%; animation-duration: 14s"
+          >
+            <strong>Groceries</strong><span>Chili oil, scallions, noodles</span>
+          </div>
+          <span class="bn-dot" style="left: 22%; top: 10%"></span>
+          <span
+            class="bn-dot"
+            style="right: 24%; top: 32%; animation-delay: 1.4s"
+          ></span>
+          <span
+            class="bn-dot"
+            style="
+              left: 30%;
+              bottom: 38%;
+              animation-delay: 2.6s;
+              width: 6px;
+              height: 6px;
+            "
+          ></span>
+        </div>
+        <div
+          class="container sec-head center"
+          style="position: relative; z-index: 1"
+        >
+          <span class="eyebrow light">Everything in one place</span>
+          <h2 style="margin-top: 16px">
+            One place for all the things
+            <span class="hl hl-dark">worth remembering</span>.
+          </h2>
+          <p class="bn-sub" style="margin-inline: auto">
+            Ideas, lists, plans and notes — captured, organized, and ready
+            whenever you are.
+          </p>
+          <a
+            class="banner-link"
+            href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+            target="_blank"
+            rel="noopener"
+            >Try NoteCraft
+            <svg class="ic" aria-hidden="true"><use href="#i-arrow-r" /></svg
+          ></a>
+        </div>
+        <div class="bn-stage" aria-hidden="true">
+          <div class="browser reveal">
+            <div class="b-bar">
+              <span class="b-dots"><i></i><i></i><i></i></span>
+              <span class="b-addr"
+                ><svg class="ic"><use href="#i-lock" /></svg>notecraft</span
+              >
+              <span class="b-spacer"></span>
+            </div>
+            <div class="app">
+              <aside class="app-side">
+                <div class="as-label">Notes</div>
+                <div class="as-item active">
+                  <div class="as-t">Everything worth keeping</div>
+                  <div class="as-d">Tue</div>
+                  <div class="as-s">One workspace, every thought…</div>
+                </div>
+                <div class="as-item">
+                  <div class="as-t">Reading list</div>
+                  <div class="as-d">Mon</div>
+                  <div class="as-s">Three essays on attention…</div>
+                </div>
+                <div class="as-item">
+                  <div class="as-t">Trip ideas</div>
+                  <div class="as-d">Sun</div>
+                  <div class="as-s">Kyoto in autumn — worth it…</div>
+                </div>
+              </aside>
+              <div class="app-main">
+                <div class="am-head">
+                  <div class="am-title">Everything worth keeping</div>
+                  <div class="am-meta">
+                    <span class="tag">All notes</span
+                    ><span class="save-pill"
+                      ><svg class="ic"><use href="#i-check" /></svg>Saved</span
+                    >
+                  </div>
+                </div>
+                <div class="am-body">
+                  <p>
+                    Ideas, lists, plans, reading notes, reminders — they all
+                    belong somewhere. NoteCraft is that somewhere: one calm
+                    workspace where nothing important slips away.
+                  </p>
+                  <ul class="am-checks">
+                    <li class="done">
+                      <span class="cb"
+                        ><svg class="ic"><use href="#i-check" /></svg></span
+                      >Capture the idea
+                    </li>
+                    <li class="done">
+                      <span class="cb"
+                        ><svg class="ic"><use href="#i-check" /></svg></span
+                      >Give it a place
+                    </li>
+                    <li><span class="cb"></span>Find it again in seconds</li>
+                  </ul>
+                </div>
+                <div class="am-foot">
+                  <span>38 words</span><span>Edited just now</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FAQ ================= -->
+      <section class="sec" id="faq" aria-label="Frequently asked questions">
+        <div class="container">
+          <div class="sec-head center reveal">
+            <span class="eyebrow">FAQ</span>
+            <h2 style="margin-top: 16px">Frequently asked questions.</h2>
+            <p class="sec-sub">
+              Everything you need to know before your first note.
+            </p>
+          </div>
+          <div class="faq-wrap reveal">
+            <div class="faq-item open">
+              <h3 class="faq-h">
+                <button
+                  class="faq-q"
+                  aria-expanded="true"
+                  aria-controls="faqp1"
+                  id="faqq1"
+                >
+                  What is NoteCraft?<span class="faq-ic"
+                    ><svg class="ic" aria-hidden="true">
+                      <use href="#i-plus" /></svg
+                  ></span>
+                </button>
+              </h3>
+              <div
+                class="faq-a"
+                id="faqp1"
+                role="region"
+                aria-labelledby="faqq1"
+              >
+                <div class="faq-a-inner">
+                  <p>
+                    NoteCraft is a simple, focused digital workspace for
+                    capturing, organizing, and managing your notes — right in
+                    your web browser. Open it, write, and keep everything in one
+                    place.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-h">
+                <button
+                  class="faq-q"
+                  aria-expanded="false"
+                  aria-controls="faqp2"
+                  id="faqq2"
+                >
+                  Is NoteCraft easy to use?<span class="faq-ic"
+                    ><svg class="ic" aria-hidden="true">
+                      <use href="#i-plus" /></svg
+                  ></span>
+                </button>
+              </h3>
+              <div
+                class="faq-a"
+                id="faqp2"
+                role="region"
+                aria-labelledby="faqq2"
+              >
+                <div class="faq-a-inner">
+                  <p>
+                    Yes. NoteCraft is designed to be instantly familiar: open
+                    it, create a note, and start writing. There's nothing
+                    complicated to learn and nothing getting between you and
+                    your ideas.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-h">
+                <button
+                  class="faq-q"
+                  aria-expanded="false"
+                  aria-controls="faqp3"
+                  id="faqq3"
+                >
+                  Who can use NoteCraft?<span class="faq-ic"
+                    ><svg class="ic" aria-hidden="true">
+                      <use href="#i-plus" /></svg
+                  ></span>
+                </button>
+              </h3>
+              <div
+                class="faq-a"
+                id="faqp3"
+                role="region"
+                aria-labelledby="faqq3"
+              >
+                <div class="faq-a-inner">
+                  <p>
+                    Anyone who thinks in notes. Students, developers, creators,
+                    professionals, and everyday users all use NoteCraft to keep
+                    class notes, technical snippets, ideas, meeting notes, and
+                    personal reminders in one place.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-h">
+                <button
+                  class="faq-q"
+                  aria-expanded="false"
+                  aria-controls="faqp4"
+                  id="faqq4"
+                >
+                  Where can I access NoteCraft?<span class="faq-ic"
+                    ><svg class="ic" aria-hidden="true">
+                      <use href="#i-plus" /></svg
+                  ></span>
+                </button>
+              </h3>
+              <div
+                class="faq-a"
+                id="faqp4"
+                role="region"
+                aria-labelledby="faqq4"
+              >
+                <div class="faq-a-inner">
+                  <p>
+                    NoteCraft runs entirely in your browser. Click
+                    <a
+                      href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+                      target="_blank"
+                      rel="noopener"
+                      >“Try NoteCraft”</a
+                    >
+                    anywhere on this page and you're in.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-h">
+                <button
+                  class="faq-q"
+                  aria-expanded="false"
+                  aria-controls="faqp5"
+                  id="faqq5"
+                >
+                  Do I need to install anything?<span class="faq-ic"
+                    ><svg class="ic" aria-hidden="true">
+                      <use href="#i-plus" /></svg
+                  ></span>
+                </button>
+              </h3>
+              <div
+                class="faq-a"
+                id="faqp5"
+                role="region"
+                aria-labelledby="faqq5"
+              >
+                <div class="faq-a-inner">
+                  <p>
+                    No. There's nothing to download or install — just open
+                    NoteCraft in your browser and start taking notes.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FINAL CTA ================= -->
+      <section class="sec" aria-label="Get started" style="padding-top: 0">
+        <div class="container">
+          <div class="cta-panel noise reveal">
+            <h2>
+              Your next
+              <span class="hl hl-dark"
+                >great idea<svg
+                  class="hl-swash"
+                  viewBox="0 0 230 14"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 10 C 60 3.5, 160 3, 226 7.5"
+                    pathLength="100"
+                    style="animation-delay: 0.4s"
+                  /></svg
+              ></span>
+              deserves a place.
+            </h2>
+            <p>Start organizing your thoughts with NoteCraft.</p>
+            <div class="cta-btns">
+              <a
+                class="btn btn-accent"
+                href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+                target="_blank"
+                rel="noopener"
+                >Open NoteCraft
+                <svg class="ic" aria-hidden="true">
+                  <use href="#i-arrow-r" /></svg
+              ></a>
+              <a class="btn btn-ghost-d" href="#features">Explore Features</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+      <div class="container foot-top">
+        <div class="foot-brand">
+          <a class="brand" href="#top" aria-label="NoteCraft — back to top">
+            <svg class="logo" viewBox="0 0 34 34" aria-hidden="true">
+              <rect width="34" height="34" rx="9.5" fill="#F5EFE4" />
+              <path
+                d="M11.5 7.5h8.2l6.3 6.3V24a2.5 2.5 0 0 1-2.5 2.5h-12A2.5 2.5 0 0 1 9 24V10a2.5 2.5 0 0 1 2.5-2.5Z"
+                fill="#161210"
+              />
+              <path
+                d="M19.7 7.5v3.9a2.4 2.4 0 0 0 2.4 2.4h3.9Z"
+                fill="#E0502A"
+              />
+              <path
+                d="M13 17h8M13 20.5h5.5"
+                stroke="#F5EFE4"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                fill="none"
+              />
+            </svg>
+            <span class="brand-name">Note<em>Craft</em></span>
+          </a>
+          <p class="foot-tag">Simple notes. Better organization.</p>
+        </div>
+        <nav class="foot-nav" aria-label="Footer">
+          <a href="#top">Home</a>
+          <a href="#features">Features</a>
+          <a href="#how">How It Works</a>
+          <a href="#use-cases">Use Cases</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a
+          class="btn btn-accent"
+          href="https://browserbaba24x7-cloud.github.io/Notecraft/"
+          target="_blank"
+          rel="noopener"
+          >Open NoteCraft
+          <svg class="ic" aria-hidden="true"><use href="#i-arrow-r" /></svg
+        ></a>
+      </div>
+      <div class="container foot-bottom">
+        <span>© 2026 NoteCraft. All rights reserved.</span>
+        <a class="to-top" href="#top"
+          >Back to top
+          <svg class="ic" aria-hidden="true"><use href="#i-up" /></svg
+        ></a>
+      </div>
+    </footer>
+
+    <noscript
+      ><style>
+        .reveal,
+        .hu,
+        .browser.hu {
+          opacity: 1;
+          transform: none;
+        }
+        .hl-swash path,
+        .chip-1 .chip-in {
+          opacity: 1;
+          stroke-dashoffset: 0;
+          transform: none;
+        }
+      </style></noscript
+    >
+
+    <script>
+      (function () {
+        "use strict";
+        var header = document.querySelector(".site-header");
+        var prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        /* Navbar state on scroll */
+        function onScroll() {
+          header.classList.toggle("scrolled", window.scrollY > 24);
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        /* Mobile menu */
+        var toggle = document.querySelector(".nav-toggle");
+        var menu = document.getElementById("mobile-menu");
+        function closeMenu() {
+          header.classList.remove("menu-open");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open menu");
+          document.body.classList.remove("no-scroll");
+        }
+        toggle.addEventListener("click", function () {
+          var open = header.classList.toggle("menu-open");
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          document.body.classList.toggle("no-scroll", open);
+        });
+        menu.querySelectorAll("a").forEach(function (a) {
+          a.addEventListener("click", closeMenu);
+        });
+        window.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeMenu();
+        });
+
+        /* Scroll reveals */
+        var reveals = document.querySelectorAll(".reveal");
+        if (prefersReduced || !("IntersectionObserver" in window)) {
+          reveals.forEach(function (el) {
+            el.classList.add("in");
+          });
+        } else {
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add("in");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -36px 0px" },
+          );
+          reveals.forEach(function (el) {
+            io.observe(el);
+          });
+        }
+
+        /* Scrollspy for desktop nav */
+        var links = Array.prototype.slice.call(
+          document.querySelectorAll(".nav-links a"),
+        );
+        if ("IntersectionObserver" in window) {
+          var spy = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  links.forEach(function (a) {
+                    a.classList.toggle(
+                      "active",
+                      a.getAttribute("href") === "#" + e.target.id,
+                    );
+                  });
+                }
+              });
+            },
+            { rootMargin: "-40% 0px -55% 0px" },
+          );
+          ["features", "how", "use-cases", "faq"].forEach(function (id) {
+            var s = document.getElementById(id);
+            if (s) spy.observe(s);
+          });
+        }
+
+        /* Hero typing animation */
+        var hero = document.querySelector(".hero");
+        var target = document.getElementById("typeTarget");
+        var TEXT = "New idea: a reading list that organizes itself.";
+        function finishTyping() {
+          if (target) target.textContent = TEXT;
+          hero.classList.add("typed");
+          var w = document.querySelector(".wcount");
+          if (w) w.textContent = "146 words";
+        }
+        if (prefersReduced || !target) {
+          finishTyping();
+        } else {
+          setTimeout(function () {
+            var i = 0;
+            (function tick() {
+              if (i <= TEXT.length) {
+                target.textContent = TEXT.slice(0, i++);
+                setTimeout(tick, 30 + Math.random() * 46);
+              } else {
+                finishTyping();
+              }
+            })();
+          }, 1700);
+        }
+
+        /* Showcase tabs */
+        var tablist = document.querySelector(".shot-tabs");
+        if (tablist) {
+          var tabs = Array.prototype.slice.call(
+            tablist.querySelectorAll(".shot-tab"),
+          );
+          var panels = tabs.map(function (t, i) {
+            return document.getElementById("shot" + (i + 1));
+          });
+          function select(i, focus) {
+            tabs.forEach(function (t, j) {
+              var on = i === j;
+              t.classList.toggle("active", on);
+              t.setAttribute("aria-selected", String(on));
+              t.tabIndex = on ? 0 : -1;
+              panels[j].classList.toggle("active", on);
+            });
+            if (focus) tabs[i].focus();
+          }
+          tabs.forEach(function (t, i) {
+            t.tabIndex = i === 0 ? 0 : -1;
+            t.addEventListener("click", function () {
+              select(i, false);
+            });
+          });
+          tablist.addEventListener("keydown", function (e) {
+            var i = tabs.indexOf(document.activeElement);
+            if (i < 0) return;
+            var n = null;
+            if (e.key === "ArrowDown" || e.key === "ArrowRight")
+              n = (i + 1) % tabs.length;
+            else if (e.key === "ArrowUp" || e.key === "ArrowLeft")
+              n = (i - 1 + tabs.length) % tabs.length;
+            else if (e.key === "Home") n = 0;
+            else if (e.key === "End") n = tabs.length - 1;
+            if (n !== null) {
+              e.preventDefault();
+              select(n, true);
+            }
+          });
+        }
+
+        /* FAQ accordion */
+        document.querySelectorAll(".faq-item").forEach(function (item) {
+          var btn = item.querySelector(".faq-q");
+          btn.addEventListener("click", function () {
+            var wasOpen = item.classList.contains("open");
+            document.querySelectorAll(".faq-item.open").forEach(function (o) {
+              o.classList.remove("open");
+              o.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+            });
+            if (!wasOpen) {
+              item.classList.add("open");
+              btn.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
